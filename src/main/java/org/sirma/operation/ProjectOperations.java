@@ -10,9 +10,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import static org.sirma.constants.Constants.DATE_FORMATS;
-import static org.sirma.constants.Constants.UNABLE_TO_PARSE_DATE;
+import static org.sirma.constants.ExceptionMessages.*;
 
 /**
  * ProjectOperations class contains all the necessary logic behind reading a csv file and parsing data.
@@ -27,6 +28,8 @@ public class ProjectOperations {
      * Read CSV file by providing a file path. The logic is simple by go through all lines from the given CSV file
      * and parse it to our ProjectInformation class.
      *
+     * @throws IllegalArgumentException exception if there is uncorrected data provided.
+     * @throws NoSuchElementException exception if there is empty file provided.
      * @param String filePath - path to the csv file
      * @return list of ProjectInformation class.
      */
@@ -36,6 +39,9 @@ public class ProjectOperations {
             String line;
             while ((line = br.readLine()) != null) {
                 String[] parts = line.split(",");
+                if (parts.length != 4) {
+                    throw new IllegalArgumentException(CORRECT_DATA_EXCEPTION);
+                }
                 String partZero = parts[0].trim();
                 int empID = Integer.parseInt(partZero);
                 int projectID = Integer.parseInt(parts[1].trim());
@@ -46,6 +52,9 @@ public class ProjectOperations {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        if (data.isEmpty()) {
+            throw new NoSuchElementException(EMPTY_FILE_EXCEPTION);
+        }
         return data;
     }
 
@@ -53,8 +62,8 @@ public class ProjectOperations {
      * Parses text from the given string to produce a date. We are trying to parse from ouy DATE_FORMATS constant which
      * contains list of Date formats.
      *
-     * @throws IllegalArgumentException exception if there is not achieved any parsing from our constants.
      * @return Date parsed date
+     * @throws IllegalArgumentException exception if there is not achieved any parsing from our constants.
      */
     private static Date parseDate(String dateString) throws IllegalArgumentException {
         for (String format : DATE_FORMATS) {
@@ -64,7 +73,7 @@ public class ProjectOperations {
             } catch (ParseException ignored) {
             }
         }
-        throw new IllegalArgumentException(UNABLE_TO_PARSE_DATE + dateString);
+        throw new IllegalArgumentException(UNABLE_TO_PARSE_DATE_EXCEPTION + dateString);
     }
 
 }

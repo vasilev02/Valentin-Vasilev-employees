@@ -61,6 +61,7 @@ public class EmployeeAnalyzerUI extends JFrame {
          * Listening for event for uploading CSV file from UI. Print the result in a text area container on UI.
          */
         public void actionPerformed(ActionEvent e) {
+            StringBuilder stringBuilder = new StringBuilder();
             JFileChooser fileChooser = new JFileChooser();
             FileNameExtensionFilter filter = new FileNameExtensionFilter("CSV files", "csv");
             fileChooser.setFileFilter(filter);
@@ -68,12 +69,19 @@ public class EmployeeAnalyzerUI extends JFrame {
             int returnValue = fileChooser.showOpenDialog(null);
             if (returnValue == JFileChooser.APPROVE_OPTION) {
                 File selectedFile = fileChooser.getSelectedFile();
-                List<ProjectInformation> projectDataList = readCSV(selectedFile.getAbsolutePath());
+                List<ProjectInformation> projectDataList;
+                try {
+                    projectDataList = readCSV(selectedFile.getAbsolutePath());
+                }catch (IllegalArgumentException | NoSuchElementException exception){
+                    stringBuilder.append(exception.getMessage());
+                    textArea.setText(stringBuilder.toString());
+                    return;
+                }
+
                 DefaultTableModel model = getTableModel(projectDataList);
                 dataTable.setModel(model);
 
                 Pair pair = findLongestWorkingPair(projectDataList);
-                StringBuilder stringBuilder = new StringBuilder();
                 stringBuilder.append("Longest working pair of employees.\n\n");
                 stringBuilder.append("Employee ID #1: ").append(pair.getEmpID1()).append("\n");
                 stringBuilder.append("Employee ID #2: ").append(pair.getEmpID2()).append("\n\n");
