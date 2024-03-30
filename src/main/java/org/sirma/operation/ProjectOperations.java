@@ -1,6 +1,6 @@
-package operation;
+package org.sirma.operation;
 
-import model.ProjectInformation;
+import org.sirma.model.ProjectInformation;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -11,8 +11,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import static constants.Constants.DATE_FORMATS;
-import static constants.Constants.UNABLE_TO_PARSE_DATE;
+import static org.sirma.constants.Constants.DATE_FORMATS;
+import static org.sirma.constants.Constants.UNABLE_TO_PARSE_DATE;
 
 public class ProjectOperations {
 

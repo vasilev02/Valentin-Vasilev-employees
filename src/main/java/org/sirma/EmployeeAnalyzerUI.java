@@ -1,5 +1,7 @@
-import model.Pair;
-import model.ProjectInformation;
+package org.sirma;
+
+import org.sirma.model.Pair;
+import org.sirma.model.ProjectInformation;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -11,8 +13,8 @@ import java.io.File;
 import java.util.*;
 import java.util.List;
 
-import static constants.Constants.*;
-import static operation.ProjectOperations.readCSV;
+import static org.sirma.constants.Constants.*;
+import static org.sirma.operation.ProjectOperations.readCSV;
 
 public class EmployeeAnalyzerUI extends JFrame {
 

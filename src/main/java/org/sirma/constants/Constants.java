@@ -1,4 +1,4 @@
-package constants;
+package org.sirma.constants;
 
 public class Constants {
 

@@ -1,4 +1,4 @@
-package model;
+package org.sirma.model;
 
 import java.util.Map;
 
