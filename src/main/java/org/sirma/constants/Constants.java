@@ -1,5 +1,8 @@
 package org.sirma.constants;
 
+/**
+ * Constants class is used for constants and predefined values.
+ */
 public class Constants {
 
     private Constants() {

@@ -2,6 +2,10 @@ package org.sirma.model;
 
 import java.util.Map;
 
+/**
+ * Pair class which contains the ids of two employees. It contains all the projects they have worked and
+ * total working time together.
+ */
 public class Pair {
     private int empID1;
     private int empID2;

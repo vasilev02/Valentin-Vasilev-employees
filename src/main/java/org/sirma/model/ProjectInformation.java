@@ -2,6 +2,10 @@ package org.sirma.model;
 
 import java.util.Date;
 
+/**
+ * ProjectInformation class is created for the purpose of mapping the incoming data from the uploaded csv file
+ * and for better accessing the desired properties.
+ */
 public class ProjectInformation {
     private int empID;
     private int projectID;

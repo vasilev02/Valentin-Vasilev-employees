@@ -16,11 +16,18 @@ import java.util.List;
 import static org.sirma.constants.Constants.*;
 import static org.sirma.operation.ProjectOperations.readCSV;
 
+/**
+ * EmployeeAnalyzerUI class is the main class which is using all the code's logic. Inside of it we are creating by
+ * Java Swing API simple UI panel where we can upload our CSV file and see the desired results by data table and text box.
+ */
 public class EmployeeAnalyzerUI extends JFrame {
 
     private final JTable dataTable;
     private final JTextArea textArea;
 
+    /**
+     * EmployeeAnalyzerUI is used to compose as little blocks the entire UI by some main containers in Swing API.
+     */
     public EmployeeAnalyzerUI() {
         setTitle(APP_TITLE);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -43,7 +50,16 @@ public class EmployeeAnalyzerUI extends JFrame {
         add(controlPanel, BorderLayout.NORTH);
     }
 
+    /**
+     * OpenButtonListener class which listen for the uploading of csv files and printing the result on the UI.
+     *
+     * @implements ActionListener interface the listener interface for receiving action events
+     */
     private class OpenButtonListener implements ActionListener {
+
+        /**
+         * Listening for event for uploading CSV file from UI. Print the result in a text area container on UI.
+         */
         public void actionPerformed(ActionEvent e) {
             JFileChooser fileChooser = new JFileChooser();
             FileNameExtensionFilter filter = new FileNameExtensionFilter("CSV files", "csv");
@@ -67,7 +83,7 @@ public class EmployeeAnalyzerUI extends JFrame {
                 int workingMonths = workingDays / 30;
                 int workingYears = workingDays / 365;
 
-                stringBuilder.append("They worked together on common projects for: ").append(pair.getWorkingTime()).append(" days.").append("\n");
+                stringBuilder.append("They worked together on common projects for: ").append(workingDays).append(" days.").append("\n");
 
                 stringBuilder.append("Converted: ")
                         .append(workingWeeks).append(" weeks/ ")
@@ -86,6 +102,13 @@ public class EmployeeAnalyzerUI extends JFrame {
         }
     }
 
+    /**
+     * Creating the table by giving it first the header names and fulfill it with rows from the pair of employees.
+     * But before that we fetch the longest working fair.
+     *
+     * @param List of ProjectInformation projectDataList
+     * @return DefaultTableModel model
+     */
     private DefaultTableModel getTableModel(List<ProjectInformation> projectDataList) {
         DefaultTableModel model = new DefaultTableModel();
         model.addColumn(COLUMN_EMPLOYEE_1);
@@ -99,6 +122,12 @@ public class EmployeeAnalyzerUI extends JFrame {
         return model;
     }
 
+    /**
+     * Get the pair of two employees which have worked the longest time on common projects.
+     *
+     * @param List of ProjectInformation projectDataList
+     * @return Pair pair - longest working pair
+     */
     private static Pair findLongestWorkingPair(List<ProjectInformation> projectDataList) {
         Map<Pair, Integer> workingPeriods = new HashMap<>();
         for (int i = 0; i < projectDataList.size(); i++) {
@@ -128,6 +157,14 @@ public class EmployeeAnalyzerUI extends JFrame {
         return Collections.max(workingPeriods.entrySet(), Map.Entry.comparingByValue()).getKey();
     }
 
+    /**
+     * Compute the working time by the given date from each employee. We can easily change by our requirements if we
+     * want to calculate it in days or weeks etc.. by delete or add the value for the period.
+     *
+     * @param ProjectInformation pd1 - first employee
+     * @param ProjectInformation pd2 - second employee
+     * @return int time in DAYS
+     */
     private static int computeWorkingTime(ProjectInformation pd1, ProjectInformation pd2) {
         Date startDate = pd1.getDateFrom().after(pd2.getDateFrom()) ? pd1.getDateFrom() : pd2.getDateFrom();
         Date endDate = pd1.getDateTo().before(pd2.getDateTo()) ? pd1.getDateTo() : pd2.getDateTo();
@@ -135,12 +172,29 @@ public class EmployeeAnalyzerUI extends JFrame {
         return (int) (diff / (1000 * 60 * 60 * 24));
     }
 
+    /**
+     * Creating pair between two employees.
+     *
+     * @param ProjectInformation firstEmp - first employee
+     * @param ProjectInformation secondEmp - second employee
+     * @param int newTime - time to be set for the first time
+     * @return Pair newly created pair
+     */
     private static Pair createPair(ProjectInformation firstEmp, ProjectInformation secondEmp, int newTime) {
         Map<Integer, Integer> projects = new TreeMap<>();
         projects.put(firstEmp.getProjectID(), newTime);
         return new Pair(firstEmp.getEmpID(), secondEmp.getEmpID(), newTime, projects);
     }
 
+    /**
+     * Creating pair between two employees.
+     *
+     * @param ProjectInformation firstEmp - first employee
+     * @param ProjectInformation secondEmp - second employee
+     * @param Map workingPeriods - our collection where we store the results
+     * @param int newTime - time to be set for the first time
+     * @return Pair if there is such to update or null
+     */
     private static Pair updatePair(ProjectInformation firstEmp, ProjectInformation secondEmp, Map<Pair, Integer> workingPeriods, int newTime) {
 
         for (Map.Entry<Pair, Integer> entry : workingPeriods.entrySet()) {
@@ -162,6 +216,12 @@ public class EmployeeAnalyzerUI extends JFrame {
         return null;
     }
 
+    /**
+     * Our main starting point.
+     *
+     * @param Arrays args
+     * @return void
+     */
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {
             EmployeeAnalyzerUI ui = new EmployeeAnalyzerUI();
