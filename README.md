@@ -30,7 +30,7 @@
    ```sh
    mvn assembly:single
    ```
-* To start the jar use this command. If you navigate to the absolute path you can double click it and it will start.
+* Go to target directory and to start the jar either use this command in terminal or if you navigate to the absolute path you can double click it and it will start.
    ```sh
    java -jar employees-1.0-SNAPSHOT-jar-with-dependencies.jar
    ```
