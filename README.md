@@ -40,6 +40,10 @@
 The user picks up a file from the file system and, after selecting it, all common projects of the pair who have worked together on common projects for the longest period of time are displayed in a brief information with datagrid.
 We support different Date formats. The calculation is being computed in days.
 
+<br/>
+<img width="600" alt="Screenshot 2024-03-31 at 13 31 21" src="https://github.com/vasilev02/Valentin-Vasilev-employees/assets/59262958/999c313a-7ae3-4a71-b40c-4c528594a452">
+<br/>
+
 ## User interface
 UI is simple structure from Java Swing API. It contains button for uploading csv files which listens all the time for interact with files. After we upload file
 we will see information about longest working pair in two containers. First container inludes all common projects of the pair are displayed in datagrid with the following 
@@ -50,6 +54,13 @@ every project with it's id and worked days related to it.
 ## Error handling
 For this part we have simple error handling coded. If you try to upload CSV file which is empty, with invalid dates or invalid structure like row without employee key
 or without either start date or end date it will throw exception with the related message.
+
+## Unit tests
+Comprehensive unit tests using a framework Junit to ensure code correctness and reliability.
+
+<br/>
+<img width="282" alt="Screenshot 2024-03-31 at 13 24 45" src="https://github.com/vasilev02/Valentin-Vasilev-employees/assets/59262958/4aa89310-47af-4cad-85f4-f771998f56b4">
+<br/>
 
 ## Connect with me
 
