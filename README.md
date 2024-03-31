@@ -35,7 +35,7 @@
    java -jar employees-1.0-SNAPSHOT-jar-with-dependencies.jar
    ```
 * Upload CSV file and see the result.
-* 
+
 ## Functionallity
 The user picks up a file from the file system and, after selecting it, all common projects of the pair who have worked together on common projects for the longest period of time are displayed in a brief information with datagrid.
 We support different Date formats. The calculation is being computed in days.
