@@ -136,7 +136,7 @@ public class EmployeeAnalyzerUI extends JFrame {
      * @param List of ProjectInformation projectDataList
      * @return Pair pair - longest working pair
      */
-    private static Pair findLongestWorkingPair(List<ProjectInformation> projectDataList) {
+    static Pair findLongestWorkingPair(List<ProjectInformation> projectDataList) {
         Map<Pair, Integer> workingPeriods = new HashMap<>();
         for (int i = 0; i < projectDataList.size(); i++) {
             for (int j = i + 1; j < projectDataList.size(); j++) {
@@ -173,7 +173,7 @@ public class EmployeeAnalyzerUI extends JFrame {
      * @param ProjectInformation pd2 - second employee
      * @return int time in DAYS
      */
-    private static int computeWorkingTime(ProjectInformation pd1, ProjectInformation pd2) {
+    protected static int computeWorkingTime(ProjectInformation pd1, ProjectInformation pd2) {
         Date startDate = pd1.getDateFrom().after(pd2.getDateFrom()) ? pd1.getDateFrom() : pd2.getDateFrom();
         Date endDate = pd1.getDateTo().before(pd2.getDateTo()) ? pd1.getDateTo() : pd2.getDateTo();
         long diff = endDate.getTime() - startDate.getTime();

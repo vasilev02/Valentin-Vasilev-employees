@@ -65,7 +65,7 @@ public class ProjectOperations {
      * @return Date parsed date
      * @throws IllegalArgumentException exception if there is not achieved any parsing from our constants.
      */
-    private static Date parseDate(String dateString) throws IllegalArgumentException {
+    public static Date parseDate(String dateString) throws IllegalArgumentException {
         for (String format : DATE_FORMATS) {
             try {
                 SimpleDateFormat dateFormat = new SimpleDateFormat(format);
