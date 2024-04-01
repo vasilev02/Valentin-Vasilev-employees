@@ -66,22 +66,21 @@ public class EmployeeAnalyzerUI extends JFrame {
             FileNameExtensionFilter filter = new FileNameExtensionFilter("CSV files", "csv");
             fileChooser.setFileFilter(filter);
 
+            Pair pair;
             int returnValue = fileChooser.showOpenDialog(null);
             if (returnValue == JFileChooser.APPROVE_OPTION) {
                 File selectedFile = fileChooser.getSelectedFile();
                 List<ProjectInformation> projectDataList;
                 try {
                     projectDataList = readCSV(selectedFile.getAbsolutePath());
-                }catch (IllegalArgumentException | NoSuchElementException exception){
+                    DefaultTableModel model = getTableModel(projectDataList);
+                    dataTable.setModel(model);
+                    pair = findLongestWorkingPair(projectDataList);
+                } catch (IllegalArgumentException | NoSuchElementException exception) {
                     stringBuilder.append(exception.getMessage());
                     textArea.setText(stringBuilder.toString());
                     return;
                 }
-
-                DefaultTableModel model = getTableModel(projectDataList);
-                dataTable.setModel(model);
-
-                Pair pair = findLongestWorkingPair(projectDataList);
                 stringBuilder.append("Longest working pair of employees.\n\n");
                 stringBuilder.append("Employee ID #1: ").append(pair.getEmpID1()).append("\n");
                 stringBuilder.append("Employee ID #2: ").append(pair.getEmpID2()).append("\n\n");
@@ -126,7 +125,7 @@ public class EmployeeAnalyzerUI extends JFrame {
 
         Pair pair = findLongestWorkingPair(projectDataList);
 
-        pair.getProjects().forEach((key, value) -> model.addRow(new Object[]{pair.getEmpID1(),pair.getEmpID2(),key, value}));
+        pair.getProjects().forEach((key, value) -> model.addRow(new Object[]{pair.getEmpID1(), pair.getEmpID2(), key, value}));
         return model;
     }
 
@@ -146,6 +145,9 @@ public class EmployeeAnalyzerUI extends JFrame {
 
                 if (pd1.getProjectID() == pd2.getProjectID() && pd1.getEmpID() != pd2.getEmpID()) {
                     int newTime = computeWorkingTime(pd1, pd2);
+                    if (newTime < 0) {
+                        throw new IllegalArgumentException("You have past and future date changed!");
+                    }
 
                     if (workingPeriods.isEmpty()) {
                         Pair newPair = createPair(pd1, pd2, newTime);
@@ -185,7 +187,7 @@ public class EmployeeAnalyzerUI extends JFrame {
      *
      * @param ProjectInformation firstEmp - first employee
      * @param ProjectInformation secondEmp - second employee
-     * @param int newTime - time to be set for the first time
+     * @param int                newTime - time to be set for the first time
      * @return Pair newly created pair
      */
     private static Pair createPair(ProjectInformation firstEmp, ProjectInformation secondEmp, int newTime) {
@@ -199,8 +201,8 @@ public class EmployeeAnalyzerUI extends JFrame {
      *
      * @param ProjectInformation firstEmp - first employee
      * @param ProjectInformation secondEmp - second employee
-     * @param Map workingPeriods - our collection where we store the results
-     * @param int newTime - time to be set for the first time
+     * @param Map                workingPeriods - our collection where we store the results
+     * @param int                newTime - time to be set for the first time
      * @return Pair if there is such to update or null
      */
     private static Pair updatePair(ProjectInformation firstEmp, ProjectInformation secondEmp, Map<Pair, Integer> workingPeriods, int newTime) {
