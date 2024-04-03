@@ -2,13 +2,13 @@
 <br />
 <div align="center">
   <a href="https://github.com/github_username/repo_name">
-    <img src="https://clipart-library.com/new_gallery/59-595466_clip-art-free-download-big-image-png-puzzle.png" alt="Logo" width="80" height="80">
+    <img src="https://cdn-icons-png.freepik.com/512/6020/6020329.png" alt="Logo" width="80" height="80">
   </a>
 
-<h3 align="center">Nine letter puzzle</h3>
+<h3 align="center">Employees Analyzer</h3>
 
   <p align="center">
-    Application that finds all 9-letter words in the English language for which the given criteria holds true for each word in the solution.
+    Application that identifies the pair of employees who have worked together on common projects for the longest period of time.
   </p>
 </div>
 
@@ -20,13 +20,47 @@
 * [![Sonar][Sonar]][Sonar-url]
 * [![Git][Git]][Git-url]
 
-## Requierments
-* It is possible to remove one letter from the word and obtain a valid 8-letter word;
-* From the 8-letter word, one letter can be removed to obtain a valid 7-letter word;
-* From the 7-letter word, one letter can be removed to obtain a valid 6-letter word, and so on, until a valid single-letter word is obtained;
-* Valid single-letter words are 'I' and 'A'.
-* The task must be optimized for speed. If a word is valid for one combination of letter removals, it is not necessary to check if it would be valid if other letters were removed.
+## Hot to use it
 
+* Clone the repository.
+   ```sh
+   git clone https://github.com/vasilev02/Valentin-Vasilev-employees
+   ```
+* Run this command which will produce two jar files(artifacts). The name of the jars depends on the build configuration in the pom file, artifactId and name of project.
+   ```sh
+   mvn assembly:single
+   ```
+* Go to target directory and to start the jar either use this command in terminal or if you navigate to the absolute path you can double click it and it will start.
+   ```sh
+   java -jar employees-1.0-SNAPSHOT-jar-with-dependencies.jar
+   ```
+* Upload CSV file and see the result.
+
+## Functionallity
+The user picks up a file from the file system and, after selecting it, all common projects of the pair who have worked together on common projects for the longest period of time are displayed in a brief information with datagrid.
+We support different Date formats. The calculation is being computed in days.
+
+<br/>
+<img width="600" alt="Screenshot 2024-03-31 at 13 31 21" src="https://github.com/vasilev02/Valentin-Vasilev-employees/assets/59262958/999c313a-7ae3-4a71-b40c-4c528594a452">
+<br/>
+
+## User interface
+UI is simple structure from Java Swing API. It contains button for uploading csv files which listens all the time for interact with files. After we upload file
+we will see information about longest working pair in two containers. First container inludes all common projects of the pair are displayed in datagrid with the following 
+columns: `Employee ID #1, Employee ID #2, Project ID, Days worked`. Second is text area with infomration about the employees id, total count projects, respectively
+total days count calculated in days. There is a info also about the weeks, months and years if there are employees working for a very long time. The last one shows
+every project with it's id and worked days related to it.
+
+## Error handling
+For this part we have simple error handling coded. If you try to upload CSV file which is empty, with invalid dates or invalid structure like row without employee key
+or without either start date or end date it will throw exception with the related message.
+
+## Unit tests
+Comprehensive unit tests using a framework Junit to ensure code correctness and reliability.
+
+<br/>
+<img width="282" alt="Screenshot 2024-03-31 at 13 24 45" src="https://github.com/vasilev02/Valentin-Vasilev-employees/assets/59262958/4aa89310-47af-4cad-85f4-f771998f56b4">
+<br/>
 
 ## Connect with me
 
